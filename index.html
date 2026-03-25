@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A&P Study AI</title>
+
+    <style>
+        :root {
+            --bg: #f4f7fb;
+            --card: #ffffff;
+            --border: #dbe3ef;
+            --text: #1f2937;
+            --muted: #6b7280;
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --success: #16a34a;
+            --success-hover: #15803d;
+            --danger: #dc2626;
+            --danger-soft: #fef2f2;
+            --success-soft: #eefbf2;
+            --soft-blue: #eef4ff;
+            --soft-green: #eefbf2;
+            --soft-yellow: #fff9e8;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .app-shell {
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 20px;
+            align-items: start;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+        }
+
+        .sidebar {
+            padding: 18px;
+            position: sticky;
+            top: 20px;
+        }
+
+        .main {
+            padding: 24px;
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            font-size: 32px;
+        }
+
+        h2 {
+            margin: 0 0 14px;
+            font-size: 20px;
+        }
+
+        h3 {
+            margin: 0 0 10px;
+            font-size: 17px;
+        }
+
+        p {
+            margin-top: 0;
+            color: var(--muted);
+        }
+
+        .hero {
+            margin-bottom: 24px;
+        }
+
+        .hero-sub {
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .stack {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .info-box {
+            padding: 14px 16px;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+        }
+
+        .progress-box {
+            background: var(--soft-blue);
+        }
+
+        .session-box {
+            background: var(--soft-green);
+        }
+
+        .focus-box {
+            background: var(--soft-yellow);
+        }
+
+        .leaderboard-box {
+            background: #f8fafc;
+        }
+
+        .stat-list {
+            margin: 10px 0 0;
+            padding-left: 18px;
+        }
+
+        .stat-list li {
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .field-label {
+            display: block;
+            margin: 14px 0 6px;
+            font-weight: bold;
+            color: var(--text);
+        }
+
+        textarea, select, input[type="text"] {
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 15px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: #fff;
+            color: var(--text);
+        }
+
+        textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+
+        .btn-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-size: 15px;
+            font-weight: bold;
+            transition: 0.18s ease;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: var(--success-hover);
+        }
+
+        .btn-secondary {
+            background: #e5e7eb;
+            color: #111827;
+        }
+
+        .btn-secondary:hover {
+            background: #d1d5db;
+        }
+
+        .answer-card {
+            margin-top: 22px;
+            padding: 18px;
+            background: #fbfcfe;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+
+        .answer-card.correct {
+            background: var(--success-soft);
+            border-color: #86efac;
+        }
+
+        .answer-card.incorrect {
+            background: var(--danger-soft);
+            border-color: #fca5a5;
+        }
+
+        .meta-line {
+            font-size: 14px;
+            color: var(--muted);
+            margin-bottom: 12px;
+        }
+
+        .score-banner {
+            margin-top: 14px;
+            padding: 12px 14px;
+            border-radius: 12px;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            font-size: 14px;
+            color: #1e3a8a;
+        }
+
+        .quiz-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .quiz-buttons button {
+            width: 100%;
+            background: var(--success);
+            color: white;
+            padding: 14px 0;
+        }
+
+        .quiz-buttons button:hover {
+            background: var(--success-hover);
+        }
+
+        .small-note {
+            margin-top: 10px;
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .leaderboard-table th,
+        .leaderboard-table td {
+            padding: 8px 6px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .leaderboard-table th {
+            color: var(--muted);
+            font-weight: bold;
+        }
+
+        .rank-badge {
+            display: inline-block;
+            min-width: 26px;
+            text-align: center;
+            padding: 4px 8px;
+            border-radius: 999px;
+            background: #e0ecff;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        @media (max-width: 1000px) {
+            .app-shell {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .controls-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quiz-buttons {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="app-shell">
+
+    <aside class="card sidebar">
+        <div class="stack">
+            <div>
+                <h2>Progress Dashboard</h2>
+                <p>Track long-term learning, streaks, and leaderboard position.</p>
+            </div>
+
+            <div class="info-box progress-box">
+                <h3>Long-Term Progress</h3>
+                <ul class="stat-list">
+                    <li>General: {{ progress.general.correct }} correct / {{ progress.general.wrong }} wrong</li>
+                    <li>Airframe: {{ progress.airframe.correct }} correct / {{ progress.airframe.wrong }} wrong</li>
+                    <li>Powerplant: {{ progress.powerplant.correct }} correct / {{ progress.powerplant.wrong }} wrong</li>
+                </ul>
+            </div>
+
+            <div class="info-box session-box">
+                <h3>Current Session</h3>
+                <ul class="stat-list">
+                    <li>General: {{ session_stats.general.correct }} correct / {{ session_stats.general.wrong }} wrong</li>
+                    <li>Airframe: {{ session_stats.airframe.correct }} correct / {{ session_stats.airframe.wrong }} wrong</li>
+                    <li>Powerplant: {{ session_stats.powerplant.correct }} correct / {{ session_stats.powerplant.wrong }} wrong</li>
+                </ul>
+            </div>
+
+            <div class="info-box focus-box">
+                <h3>Adaptive Focus</h3>
+                <p><strong>Weakest Area:</strong> {{ weakest|capitalize }}</p>
+                <p><strong>Weakest Subtopic:</strong><br>{{ weakest_subtopic_category|capitalize }} → {{ weakest_subtopic }}</p>
+                <form method="POST">
+                    <input type="hidden" name="action" value="focus_weakest">
+                    <input type="hidden" name="adaptive_mode" value="on">
+                    <input type="hidden" name="username" value="{{ username }}">
+                    <button type="submit" class="btn-primary">Focus on Weakest Topic</button>
+                </form>
+            </div>
+
+            <div class="info-box leaderboard-box">
+                <h3>Leaderboard</h3>
+                <table class="leaderboard-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>User</th>
+                            <th>Points</th>
+                            <th>Best Streak</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for name, stats in leaderboard[:10] %}
+                        <tr>
+                            <td><span class="rank-badge">{{ loop.index }}</span></td>
+                            <td>{{ name }}</td>
+                            <td>{{ stats.points }}</td>
+                            <td>{{ stats.best_streak }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="small-note">
+                    This leaderboard is shared by everyone using the same app data files. When you put the app online with shared storage, it becomes a real multi-user leaderboard.
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <main class="card main">
+        <div class="hero">
+            <h1>A&P Study AI</h1>
+            <p class="hero-sub">
+                Earn points, build streaks, and climb the leaderboard while studying by category and subtopic.
+            </p>
+        </div>
+
+        <form method="POST">
+            <label class="field-label" for="username">Username</label>
+            <input type="text" name="username" id="username" value="{{ username }}" placeholder="Enter your leaderboard name">
+
+            {% if mode != "quiz" %}
+            <label class="field-label" for="question">Your question</label>
+            <textarea name="question" id="question" placeholder="Example: Explain how a magneto works in simple terms.">{{ question }}</textarea>
+            {% endif %}
+
+            <div class="controls-grid">
+                <div>
+                    <label class="field-label" for="category">Test category</label>
+                    <select name="category" id="category" onchange="updateSubtopics()">
+                        <option value="general" {% if category == "general" %}selected{% endif %}>General</option>
+                        <option value="airframe" {% if category == "airframe" %}selected{% endif %}>Airframe</option>
+                        <option value="powerplant" {% if category == "powerplant" %}selected{% endif %}>Powerplant</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="field-label" for="selected_subtopic">Subtopic</label>
+                    <select name="selected_subtopic" id="selected_subtopic">
+                        <option value="">Adaptive / any subtopic</option>
+                        {% for topic in category_rules[category]["allowed_topics"] %}
+                            <option value="{{ topic }}" {% if selected_subtopic == topic %}selected{% endif %}>{{ topic }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div>
+                    <label class="field-label" for="mode">Study mode</label>
+                    <select name="mode" id="mode">
+                        <option value="simple" {% if mode == "simple" %}selected{% endif %}>Simple</option>
+                        <option value="steps" {% if mode == "steps" %}selected{% endif %}>Step-by-Step</option>
+                        <option value="quiz" {% if mode == "quiz" %}selected{% endif %}>Quiz Me</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="field-label" for="adaptive_mode">Adaptive focus</label>
+                    <select name="adaptive_mode" id="adaptive_mode">
+                        <option value="on" {% if adaptive_mode == "on" %}selected{% endif %}>On</option>
+                        <option value="off" {% if adaptive_mode == "off" %}selected{% endif %}>Off</option>
+                    </select>
+                </div>
+            </div>
+
+            <input type="hidden" name="quiz_context" value="{{ quiz_context }}">
+
+            <div class="btn-row">
+                <button type="submit" class="btn-primary">
+                    {% if mode == "quiz" and not answer %}
+                        Start Quiz
+                    {% else %}
+                        Study
+                    {% endif %}
+                </button>
+            </div>
+        </form>
+
+        <div class="btn-row">
+            <form method="POST">
+                <input type="hidden" name="action" value="new_session">
+                <input type="hidden" name="mode" value="quiz">
+                <input type="hidden" name="category" value="{{ category }}">
+                <input type="hidden" name="selected_subtopic" value="{{ selected_subtopic }}">
+                <input type="hidden" name="adaptive_mode" value="{{ adaptive_mode }}">
+                <input type="hidden" name="username" value="{{ username }}">
+                <button type="submit" class="btn-secondary">Start New Session</button>
+            </form>
+        </div>
+
+        {% if answer %}
+        <div class="answer-card {% if result_status == 'correct' %}correct{% elif result_status == 'incorrect' %}incorrect{% endif %}">
+            <div class="meta-line">
+                User: <strong>{{ username }}</strong>
+                | Category: <strong>{{ category|capitalize }}</strong>
+                {% if selected_subtopic %}
+                    | Subtopic: <strong>{{ selected_subtopic }}</strong>
+                {% endif %}
+                | Adaptive: <strong>{{ adaptive_mode|capitalize }}</strong>
+            </div>
+
+            <strong>Response</strong><br><br>
+            {{ answer }}
+
+            {% if result_status == "correct" %}
+            <div class="score-banner">
+                ✅ Correct — You earned <strong>{{ points_earned }}</strong> points.
+                Current streak: <strong>{{ current_streak }}</strong>.
+                Multiplier used: <strong>{{ multiplier_used }}x</strong>.
+            </div>
+            {% elif result_status == "incorrect" %}
+            <div class="score-banner">
+                ❌ Incorrect — Streak reset to <strong>0</strong>. No points earned this round.
+            </div>
+            {% endif %}
+        </div>
+
+        {% if mode == "quiz" %}
+        <div class="quiz-buttons">
+            <form method="POST">
+                <input type="hidden" name="mode" value="quiz">
+                <input type="hidden" name="category" value="{{ category }}">
+                <input type="hidden" name="selected_subtopic" value="{{ selected_subtopic }}">
+                <input type="hidden" name="adaptive_mode" value="{{ adaptive_mode }}">
+                <input type="hidden" name="username" value="{{ username }}">
+                <input type="hidden" name="question" value="A">
+                <input type="hidden" name="quiz_context" value="{{ quiz_context }}">
+                <button type="submit">A</button>
+            </form>
+
+            <form method="POST">
+                <input type="hidden" name="mode" value="quiz">
+                <input type="hidden" name="category" value="{{ category }}">
+                <input type="hidden" name="selected_subtopic" value="{{ selected_subtopic }}">
+                <input type="hidden" name="adaptive_mode" value="{{ adaptive_mode }}">
+                <input type="hidden" name="username" value="{{ username }}">
+                <input type="hidden" name="question" value="B">
+                <input type="hidden" name="quiz_context" value="{{ quiz_context }}">
+                <button type="submit">B</button>
+            </form>
+
+            <form method="POST">
+                <input type="hidden" name="mode" value="quiz">
+                <input type="hidden" name="category" value="{{ category }}">
+                <input type="hidden" name="selected_subtopic" value="{{ selected_subtopic }}">
+                <input type="hidden" name="adaptive_mode" value="{{ adaptive_mode }}">
+                <input type="hidden" name="username" value="{{ username }}">
+                <input type="hidden" name="question" value="C">
+                <input type="hidden" name="quiz_context" value="{{ quiz_context }}">
+                <button type="submit">C</button>
+            </form>
+
+            <form method="POST">
+                <input type="hidden" name="mode" value="quiz">
+                <input type="hidden" name="category" value="{{ category }}">
+                <input type="hidden" name="selected_subtopic" value="{{ selected_subtopic }}">
+                <input type="hidden" name="adaptive_mode" value="{{ adaptive_mode }}">
+                <input type="hidden" name="username" value="{{ username }}">
+                <input type="hidden" name="question" value="D">
+                <input type="hidden" name="quiz_context" value="{{ quiz_context }}">
+                <button type="submit">D</button>
+            </form>
+        </div>
+
+        <div class="btn-row">
+            <form method="POST">
+                <input type="hidden" name="mode" value="quiz">
+                <input type="hidden" name="category" value="{{ category }}">
+                <input type="hidden" name="selected_subtopic" value="{{ selected_subtopic }}">
+                <input type="hidden" name="adaptive_mode" value="{{ adaptive_mode }}">
+                <input type="hidden" name="username" value="{{ username }}">
+                <input type="hidden" name="question" value="next">
+                <input type="hidden" name="quiz_context" value="{{ quiz_context }}">
+                <button type="submit" class="btn-primary">Next Question</button>
+            </form>
+        </div>
+        {% endif %}
+        {% endif %}
+    </main>
+</div>
+
+<script>
+    const subtopicsByCategory = {
+        {% for key, data in category_rules.items() %}
+        "{{ key }}": [
+            {% for topic in data.allowed_topics %}
+            "{{ topic }}"{% if not loop.last %},{% endif %}
+            {% endfor %}
+        ]{% if not loop.last %},{% endif %}
+        {% endfor %}
+    };
+
+    const currentSelectedSubtopic = {{ selected_subtopic|tojson }};
+
+    function updateSubtopics() {
+        const categorySelect = document.getElementById("category");
+        const subtopicSelect = document.getElementById("selected_subtopic");
+        const selectedCategory = categorySelect.value;
+        const subtopics = subtopicsByCategory[selectedCategory] || [];
+
+        subtopicSelect.innerHTML = "";
+
+        const defaultOption = document.createElement("option");
+        defaultOption.value = "";
+        defaultOption.textContent = "Adaptive / any subtopic";
+        subtopicSelect.appendChild(defaultOption);
+
+        subtopics.forEach(topic => {
+            const option = document.createElement("option");
+            option.value = topic;
+            option.textContent = topic;
+            subtopicSelect.appendChild(option);
+        });
+
+        if (subtopics.includes(currentSelectedSubtopic)) {
+            subtopicSelect.value = currentSelectedSubtopic;
+        } else {
+            subtopicSelect.value = "";
+        }
+    }
+
+    window.addEventListener("load", updateSubtopics);
+</script>
+</body>
+</html>

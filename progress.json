@@ -1,0 +1,216 @@
+{
+  "general": {
+    "correct": 0,
+    "wrong": 0,
+    "subtopics": {
+      "basic math": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "basic physics": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "basic electricity": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "aircraft drawings": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "weight and balance": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "fluid lines and fittings": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "materials and processes": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "inspection concepts": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "ground operations and servicing": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "cleaning and corrosion control": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "hand tools": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "measuring tools": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "maintenance forms and records": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "FAA regulations": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "aviation safety": {
+        "correct": 0,
+        "wrong": 0
+      }
+    }
+  },
+  "airframe": {
+    "correct": 2,
+    "wrong": 4,
+    "subtopics": {
+      "aircraft structures": {
+        "correct": 1,
+        "wrong": 0
+      },
+      "sheet metal repair": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "wood structures": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "fabric covering": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "composite materials": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "welding basics": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "assembly and rigging": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "hydraulic systems": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "pneumatic systems": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "landing gear systems": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "flight control systems": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "airframe fuel systems": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "aircraft electrical systems": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "aircraft instrument systems": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "cabin atmosphere systems": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "ice and rain control systems": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "fire protection systems": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "airframe inspection and troubleshooting": {
+        "correct": 0,
+        "wrong": 0
+      }
+    }
+  },
+  "powerplant": {
+    "correct": 0,
+    "wrong": 0,
+    "subtopics": {
+      "reciprocating engines": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "turbine engines": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "engine theory": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "ignition systems": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "spark plugs": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "magnetos": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "fuel metering systems": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "induction systems": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "superchargers and turbochargers": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "engine electrical systems": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "lubrication systems": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "engine cooling systems": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "exhaust systems": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "engine inspection": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "engine troubleshooting": {
+        "correct": 0,
+        "wrong": 0
+      },
+      "propellers and propeller systems": {
+        "correct": 0,
+        "wrong": 0
+      }
+    }
+  }
+}
